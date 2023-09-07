@@ -20,26 +20,43 @@ FILE	= $(shell ls -l src/ | grep -F .c | wc -l)
 CMP		= 1
 
 #FILE
-SRC	= 
-OBJ	= $(SRC:.c=.o)
+SERVER_SRC = server.c
+CLIENT_SRC = client.c
+SERVER_OBJ	= $(SERVER_SRC:.c=.o)
+CLIENT_OBJ	= $(CLIENT_SRC:.c=.o)
 
-all: $(NAME)
+# LIBFT
+PRINT_PATH	= ./printf --no-print-directory
+PRINT_NAME	= ./printf/libftprintf.a
+
+all: $(PRINT_NAME) client server
+
+#client: $(CLIENT_OBJ)
+#	$(CC) $(CFLAGS) -o $@ $^
+
+#server: $(SERVER_OBJ)
+#	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	@$(eval CMP=$(shell echo $$(($(CMP)+1))))
+	
+$(PRINT_NAME):
+	@make -C $(PRINT_PATH)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
-	$(RNBW)
+client: $(CLIENT_OBJ)
+	$(CC) $(CLIENT_OBJ) $(CFLAGS) $(PRINT_NAME) -o client
+
+server: $(SERVER_OBJ)
+	$(CC) $(SERVER_OBJ) $(CFLAGS) $(PRINT_NAME) -o server
 
 clean:
-	@make clean -C
-	$(RM) $(OBJ)
+	@make clean -C $(PRINT_PATH)
+	$(RM) $(CLIENT_OBJ) $(SERVER_OBJ)
 
 fclean: clean
-	@make fclean -C
-	$(RM) $(NAME)
+	@make fclean -C $(PRINT_PATH)
+	$(RM) client server
 
 re: fclean all
 

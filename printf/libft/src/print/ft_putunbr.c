@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvillann <tvillann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 13:02:37 by tvillann          #+#    #+#             */
-/*   Updated: 2023/09/05 13:02:37 by tvillann         ###   ########.fr       */
+/*   Created: 2022/12/14 21:27:59 by titounis          #+#    #+#             */
+/*   Updated: 2022/12/18 03:22:38 by tvillann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../../include/libft.h"
+#include <limits.h>
 
-void send_string() {
-}
+int	ft_putunbr(unsigned int nb)
+{
+	int	i;
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        ft_printf("Usage: %s <PID of server> <message>\n", argv[0]);
-        exit(1);
-    }
-    int server_pid = ft_atoi(argv[1]);
-    const char *message = argv[2];
-    send_string();
-    return 0;
+	i = 1;
+	if (nb >= 10)
+		i += ft_putnbr(nb / 10);
+	ft_putchar(48 + nb % 10);
+	return (i);
 }

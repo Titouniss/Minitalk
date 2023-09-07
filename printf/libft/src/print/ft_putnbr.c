@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvillann <tvillann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 13:02:37 by tvillann          #+#    #+#             */
-/*   Updated: 2023/09/05 13:02:37 by tvillann         ###   ########.fr       */
+/*   Created: 2022/07/20 18:12:55 by tvillann          #+#    #+#             */
+/*   Updated: 2022/12/18 03:23:36 by tvillann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../../include/libft.h"
+#include <limits.h>
 
-void send_string() {
-}
+int	ft_putnbr(int nb)
+{
+	int	i;
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        ft_printf("Usage: %s <PID of server> <message>\n", argv[0]);
-        exit(1);
-    }
-    int server_pid = ft_atoi(argv[1]);
-    const char *message = argv[2];
-    send_string();
-    return 0;
+	i = 1;
+	if (nb >= INT_MAX)
+		return (write(1, "2147483647", 10));
+	if (nb < 0)
+	{
+		if (nb <= INT_MIN)
+			return (write(1, "-2147483648", 11));
+		nb = nb * (-1);
+		ft_putchar('-');
+		i++;
+	}
+	if (nb >= 10)
+		i += ft_putnbr(nb / 10);
+	ft_putchar(48 + nb % 10);
+	return (i);
 }

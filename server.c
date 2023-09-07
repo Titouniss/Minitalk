@@ -10,3 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minitalk.h"
+
+int main() {
+    ft_printf("PID du serveur : %d\n", getpid());
+    return 0;
+}
