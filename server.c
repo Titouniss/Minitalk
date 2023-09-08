@@ -12,7 +12,31 @@
 
 #include "minitalk.h"
 
-int main() {
-    ft_printf("PID du serveur : %d\n", getpid());
+void bit_handler(int signal)
+{
+    static int bit;
+    static int i;
+
+    if (signal == SIGUSR1)
+        i |= (1 << (7 - bit));
+    bit++;
+
+    if (bit == 8)
+    {
+        ft_printf("%c", i);
+        bit = 0;
+        i = 0;
+    }
+}
+
+int main(int argc, char **argv) {
+    (void)argv;
+    ft_printf("Server PID: %d\n", getpid());
+    while (argc == 1)
+	{
+		signal(SIGUSR1, bit_handler);
+		signal(SIGUSR2, bit_handler);
+		pause ();
+	}
     return 0;
 }

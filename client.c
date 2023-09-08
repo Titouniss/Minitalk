@@ -12,7 +12,23 @@
 
 #include "minitalk.h"
 
-void send_string() {
+void send_string(int server_pid, const char *message) {
+    for (size_t i = 0; i < ft_strlen(message); i++) {
+        char character = message[i];
+        for (int j = 7; j >= 0; j--) {
+            int bit = (character >> j) & 1;
+            if (bit == 1) {
+                if (kill(server_pid, SIGUSR1) == -1) {
+                    exit(1);
+                }
+            } else {
+                if (kill(server_pid, SIGUSR2) == -1) {
+                    exit(1);
+                }
+            }
+            usleep(100000); // Wait a short while between bits
+        }
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -22,6 +38,7 @@ int main(int argc, char *argv[]) {
     }
     int server_pid = ft_atoi(argv[1]);
     const char *message = argv[2];
-    send_string();
+    usleep(1000);
+    send_string(server_pid, message);
     return 0;
 }
