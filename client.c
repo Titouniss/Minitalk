@@ -12,6 +12,21 @@
 
 #include "minitalk.h"
 
+void	send_bit(int server_pid, int bit)
+{
+	if (bit == 1)
+	{
+		if (kill(server_pid, SIGUSR1) == -1)
+			exit(EXIT_FAILURE);
+	}
+	else
+	{
+		if (kill(server_pid, SIGUSR2) == -1)
+			exit(EXIT_FAILURE);
+	}
+	usleep(50);
+}
+
 void	send_string(int server_pid, const char *message)
 {
 	size_t	i;
@@ -27,17 +42,7 @@ void	send_string(int server_pid, const char *message)
 		while (j >= 0)
 		{
 			bit = (character >> j) & 1;
-			if (bit == 1)
-			{
-				if (kill(server_pid, SIGUSR1) == -1)
-					exit(EXIT_FAILURE);
-			}
-			else
-			{
-				if (kill(server_pid, SIGUSR2) == -1)
-					exit(EXIT_FAILURE);
-			}
-			usleep(1000);
+			send_bit(server_pid, bit);
 			j--;
 		}
 		i++;
