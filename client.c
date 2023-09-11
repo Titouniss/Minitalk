@@ -27,8 +27,11 @@ void	send_string(int server_pid, const char *message)
 		while (j >= 0)
 		{
 			bit = (character >> j) & 1;
-			if (bit == 1 && kill(server_pid, SIGUSR1) == -1)
-				exit(EXIT_FAILURE);
+			if (bit == 1)
+			{
+				if (kill(server_pid, SIGUSR1) == -1)
+					exit(EXIT_FAILURE);
+			}
 			else
 			{
 				if (kill(server_pid, SIGUSR2) == -1)
@@ -69,7 +72,7 @@ int	main(int argc, char *argv[])
 
 	error_handler(argc, argv);
 	server_pid = ft_atoi(argv[1]);
-	*message = argv[2];
+	message = argv[2];
 	usleep(100);
 	send_string(server_pid, message);
 	return (0);
