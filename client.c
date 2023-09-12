@@ -24,7 +24,7 @@ void	send_bit(int server_pid, int bit)
 		if (kill(server_pid, SIGUSR2) == -1)
 			exit(EXIT_FAILURE);
 	}
-	usleep(50);
+	usleep(500);
 }
 
 void	send_string(int server_pid, const char *message)
@@ -74,11 +74,14 @@ int	main(int argc, char *argv[])
 {
 	int			server_pid;
 	const char	*message;
+	//const char	*newline;
 
 	error_handler(argc, argv);
 	server_pid = ft_atoi(argv[1]);
 	message = argv[2];
-	usleep(100);
+	//newline = "\n";
+	usleep(500);
 	send_string(server_pid, message);
+	//send_string(server_pid, newline);
 	return (0);
 }
