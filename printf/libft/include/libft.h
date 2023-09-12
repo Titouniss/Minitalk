@@ -6,7 +6,7 @@
 /*   By: tvillann <tvillann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 09:20:06 by tvillann          #+#    #+#             */
-/*   Updated: 2023/07/27 08:05:19 by tvillann         ###   ########.fr       */
+/*   Updated: 2023/09/12 12:40:26 by tvillann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
+int		ft_isnumber(char const *s);
+
 
 /*	LIST	*/
 void	ft_lstadd_back(t_list **lst, t_list *newl);

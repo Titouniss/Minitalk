@@ -54,17 +54,17 @@ int	error_handler(int argc, char *argv[])
 	if (argc != 3)
 	{
 		ft_printf("Usage: %s <PID of server> <message>\n", argv[0]);
-		return (EXIT_FAILURE);
+		 exit(EXIT_FAILURE);
 	}
 	if (argv[2] == NULL)
 	{
-		ft_printf("Please insert a string");
-		return (EXIT_FAILURE);
+		ft_printf("Please insert a string\n");
+		exit(EXIT_FAILURE);
 	}
-	if (ft_strcmp(argv[1], "") == 0)
+	if (ft_isnumber(argv[1]) == 0)
 	{
-		ft_printf("Usage: %s <PID of server> <message>\n", argv[0]); 
-		return (EXIT_FAILURE);
+		ft_printf("Please inser a valid PID\n"); 
+		exit(EXIT_FAILURE);
 	}
 	else
 		return (EXIT_SUCCESS);

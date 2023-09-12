@@ -6,7 +6,7 @@
 #    By: tvillann <tvillann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/27 07:28:59 by tvillann          #+#    #+#              #
-#    Updated: 2023/07/27 07:37:46 by tvillann         ###   ########.fr        #
+#    Updated: 2023/09/12 12:39:00 by tvillann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC	= ./src/check/ft_isalnum.c\
 	  ./src/check/ft_isalpha.c\
 	  ./src/check/ft_isascii.c\
 	  ./src/check/ft_isdigit.c\
+	  ./src/check/ft_isnumber.c\
 	  ./src/check/ft_isprint.c\
 	  ./src/check/ft_isspace.c\
 	  ./src/list/ft_lstadd_back.c\
