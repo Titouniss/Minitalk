@@ -54,7 +54,7 @@ int	error_handler(int argc, char *argv[])
 	if (argc != 3)
 	{
 		ft_printf("Usage: %s <PID of server> <message>\n", argv[0]);
-		 exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	if (argv[2] == NULL)
 	{
