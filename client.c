@@ -68,7 +68,7 @@ int	error_handler(int argc, char *argv[])
 	}
 	if (ft_isnumber(argv[1]) == 0)
 	{
-		ft_printf("Please inser a valid PID\n"); 
+		ft_printf("Please inser a valid PID\n");
 		exit(EXIT_FAILURE);
 	}
 	else
