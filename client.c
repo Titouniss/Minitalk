@@ -12,6 +12,8 @@
 
 #include "minitalk.h"
 
+int	g_getsignal = 0;
+
 void	send_bit(int server_pid, int bit)
 {
 	if (bit == 1)
@@ -44,6 +46,9 @@ void	send_string(int server_pid, const char *message)
 			bit = (character >> j) & 1;
 			send_bit(server_pid, bit);
 			j--;
+			while (!g_getsignal)
+				usleep(1000);
+			g_getsignal = 0;
 		}
 		i++;
 	}
@@ -70,17 +75,30 @@ int	error_handler(int argc, char *argv[])
 		return (EXIT_SUCCESS);
 }
 
+void	signal_handler(int signum)
+{
+	if (signum == SIGUSR2)
+		ft_printf("the signal is here !\n");
+	else
+		g_getsignal = 1;
+}
+
 int	main(int argc, char *argv[])
 {
-	int			server_pid;
-	const char	*message;
-	const char	*newline;
+	int					server_pid;
+	const char			*message;
+	const char			*newline;
+	struct sigaction	act;
 
 	error_handler(argc, argv);
 	server_pid = ft_atoi(argv[1]);
 	message = argv[2];
 	newline = "\n";
-	usleep(1000);
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = 0;
+	act.sa_handler = &signal_handler;
+	sigaction(SIGUSR2, &act, 0);
+	sigaction(SIGUSR1, &act, 0);
 	send_string(server_pid, message);
 	send_string(server_pid, newline);
 	return (0);

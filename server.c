@@ -12,11 +12,12 @@
 
 #include "minitalk.h"
 
-void	bit_handler(int signal)
+void	bit_handler(int signal, siginfo_t *pid, void *unused)
 {
-	static int	bit;
-	static int	i;
+	static int		bit;
+	static int		i;
 
+	(void)unused;
 	if (signal == SIGUSR1)
 		i |= (1 << (7 - bit));
 	bit++;
@@ -26,17 +27,20 @@ void	bit_handler(int signal)
 		bit = 0;
 		i = 0;
 	}
+	kill(pid->si_pid, SIGUSR1);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	(void)argv;
+	struct sigaction	signal;
+
+	signal.sa_sigaction = &bit_handler;
+	signal.sa_flags = SA_SIGINFO;
+	sigemptyset(&signal.sa_mask);
 	ft_printf("Server PID: %d\n", getpid());
-	while (argc == 1)
-	{
-		signal(SIGUSR1, bit_handler);
-		signal(SIGUSR2, bit_handler);
-		pause ();
-	}
+	sigaction(SIGUSR1, &signal, NULL);
+	sigaction(SIGUSR2, &signal, NULL);
+	while (1)
+		continue ;
 	return (0);
 }
