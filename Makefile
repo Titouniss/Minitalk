@@ -31,12 +31,6 @@ PRINT_NAME	= ./printf/libftprintf.a
 
 all: $(PRINT_NAME) client server
 
-#client: $(CLIENT_OBJ)
-#	$(CC) $(CFLAGS) -o $@ $^
-
-#server: $(SERVER_OBJ)
-#	$(CC) $(CFLAGS) -o $@ $^
-
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	@$(eval CMP=$(shell echo $$(($(CMP)+1))))
